@@ -1,0 +1,15 @@
+{
+    "name": "lavramovic/short-url",
+    "autoload": {
+        "psr-4": {
+            "Lavramovic\\ShortUrl\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luka Avramovic",
+            "email": "avramoviclu@gmail.com"
+        }
+    ],
+    "require": {}
+}
