@@ -11,5 +11,7 @@
             "email": "avramoviclu@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "slim/slim": "^4.12"
+    }
 }
