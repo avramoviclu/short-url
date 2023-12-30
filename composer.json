@@ -2,7 +2,7 @@
     "name": "lavramovic/short-url",
     "autoload": {
         "psr-4": {
-            "Lavramovic\\ShortUrl\\": "src/"
+            "ShortUrl\\": "src/"
         }
     },
     "authors": [

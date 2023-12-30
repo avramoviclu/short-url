@@ -1,16 +1,20 @@
 <?php
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use ShortUrl\Controllers\Api\V1\ShortenController;
+use ShortUrl\Controllers\Api\V1\ShortUrlController;
 use Slim\Factory\AppFactory;
+use Slim\Routing\RouteCollectorProxy;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
-    return $response;
+$app->group('/api/v1', function(RouteCollectorProxy $group) {
+
+    $group->post('/shorten', ShortenController::class);
+
+    $group->get('/short-url', ShortUrlController::class);
 });
+
 
 $app->run();
