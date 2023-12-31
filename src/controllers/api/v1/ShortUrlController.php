@@ -6,12 +6,20 @@ namespace ShortUrl\Controllers\Api\V1;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use ShortUrl\Services\UrlService;
 
 final class ShortUrlController
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    private UrlService $urlService;
+
+    public function __construct(UrlService $urlService)
     {
-        $response->getBody()->write("Hello world!");
+        $this->urlService = $urlService;
+    }
+
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
+    {
+        $response = $this->urlService->shortUrl($request, $response, $args);
         
         return $response;
     }

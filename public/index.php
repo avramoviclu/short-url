@@ -2,12 +2,12 @@
 
 use ShortUrl\Controllers\Api\V1\ShortenController;
 use ShortUrl\Controllers\Api\V1\ShortUrlController;
-use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
+use DI\Bridge\Slim\Bridge;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$app = AppFactory::create();
+$app = Bridge::create();
 
 $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
@@ -15,6 +15,5 @@ $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
     $group->get('/short-url', ShortUrlController::class);
 });
-
 
 $app->run();
