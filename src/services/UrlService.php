@@ -22,4 +22,30 @@ class UrlService
         
         return $response;
     }
+
+    private function urlShortener(int $id): string
+    {
+        $timeSalt = (int)strrev((string)time());
+
+        $number = $timeSalt . $id;
+        
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        
+        $base = 62;
+        
+        $result = '';
+
+        while ($number > 0) {
+            
+            $remainder = $number % $base;
+            
+            $result = $characters[$remainder] . $result;
+            
+            $number = floor($number / $base);
+        }
+
+        $result = substr($result, 0, 7);
+
+        return $result;
+    }
 }
