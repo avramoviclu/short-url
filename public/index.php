@@ -7,6 +7,10 @@ use DI\Bridge\Slim\Bridge;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+
+$dotenv->load();
+
 $app = Bridge::create();
 
 $dependencies = require __DIR__ . '/../src/config/dependencies.php';
