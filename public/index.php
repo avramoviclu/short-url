@@ -9,6 +9,10 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = Bridge::create();
 
+$dependencies = require __DIR__ . '/../src/config/dependencies.php';
+
+$dependencies($app);
+
 $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
     $group->post('/shorten', ShortenController::class);
