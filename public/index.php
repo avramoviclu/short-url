@@ -1,7 +1,7 @@
 <?php
 
 use ShortUrl\Controllers\Api\V1\ShortenController;
-use ShortUrl\Controllers\Api\V1\ShortUrlController;
+use ShortUrl\Controllers\Api\V1\RedirectController;
 use Slim\Routing\RouteCollectorProxy;
 use DI\Bridge\Slim\Bridge;
 
@@ -21,7 +21,7 @@ $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
     $group->post('/shorten', ShortenController::class);
 
-    $group->get('/short-url', ShortUrlController::class);
+    $group->get('/{short-url}', RedirectController::class);
 });
 
 $app->run();

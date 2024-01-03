@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ShortUrl\Services\UrlService;
 
-final class ShortUrlController
+final class RedirectController
 {
     private UrlService $urlService;
 
@@ -19,7 +19,7 @@ final class ShortUrlController
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
-        $response = $this->urlService->shortUrl($request, $response, $args);
+        $response = $this->urlService->redirect($request, $response, $args);
         
         return $response;
     }
