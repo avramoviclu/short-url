@@ -2,6 +2,7 @@
 
 use ShortUrl\Controllers\Api\V1\ShortenController;
 use ShortUrl\Controllers\Api\V1\RedirectController;
+use ShortUrl\Middleware\ShortenValidationMiddleware;
 use Slim\Routing\RouteCollectorProxy;
 use DI\Bridge\Slim\Bridge;
 
@@ -19,7 +20,7 @@ $dependencies($app);
 
 $app->group('/api/v1', function(RouteCollectorProxy $group) {
 
-    $group->post('/shorten', ShortenController::class);
+    $group->post('/shorten', ShortenController::class)->add(new ShortenValidationMiddleware());
 
     $group->get('/{short-url}', RedirectController::class);
 });
