@@ -24,19 +24,23 @@ class ShortenValidationMiddleware
             
             $jsonContent = json_decode($body, true);
 
-            if (! filter_var($jsonContent['longUrl'], FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED)) {
+            if (filter_var($jsonContent['longUrl'], FILTER_VALIDATE_URL, FILTER_FLAG_QUERY_REQUIRED)) {
                 
+                $request = $request->withAttribute('jsonContent', $jsonContent);
+
+                $response = $handler->handle($request);
+
+            } else {
+
                 $response = new Response(400);
+
+                $payload = json_encode(['message' => 'Invalid input.']);
                 
-                $response->getBody()->write('Invalid input.');
+                $response->getBody()->write($payload);
 
-                return $response;
+                $response = $response->withAddedHeader('Content-Type', 'application/json');
             }
-
-            $request = $request->withAttribute('jsonContent', $jsonContent);
         }
-
-        $response = $handler->handle($request);
 
         return $response;
     }
