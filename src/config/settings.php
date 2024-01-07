@@ -8,5 +8,10 @@ return [
             'username' => getenv('DB_USERNAME'),
             'password' => getenv('DB_PASSWORD')
         ],
+        'redis' => [
+            'host' => getenv('REDIS_HOST'),
+            'scheme' => getenv('REDIS_SCHEME'),
+            'port' => getenv('REDIS_PORT')
+        ]
     ],
 ];
