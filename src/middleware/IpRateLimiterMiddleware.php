@@ -23,7 +23,7 @@ class IpRateLimiterMiddleware
 
     public function __construct()
     {
-        $this->redis = (new RedisConnection())->connect();
+        $this->redis = RedisConnection::getInstance()->connect();
     }
 
     /**

@@ -8,11 +8,13 @@ use Predis\Client;
 
 class RedisConnection
 {  
-    private $host;
+    private static $instance;
+
+    private string $host;
    
-    private $scheme;
+    private string $scheme;
    
-    private $port;
+    private string $port;
 
     public function __construct()
     {
@@ -21,6 +23,17 @@ class RedisConnection
         $this->scheme = $_ENV['REDIS_SCHEME'];
 
         $this->port = $_ENV['REDIS_PORT'];
+    }
+
+    public static function getInstance(): self
+    {
+        if (! self::$instance) {
+
+            self::$instance = new self();
+
+        }
+
+        return self::$instance;
     }
 
     public function connect(): Client
