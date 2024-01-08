@@ -1,6 +1,5 @@
 <?php
 
-use Predis\Client;
 use Slim\App;
 
 return function (App $app) {
@@ -19,18 +18,5 @@ return function (App $app) {
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         
         return $pdo;
-    });
-
-    $container->set('redis', function ($container) {
-
-        $settings = $container->get('settings')['redis'];
-
-        $redis = new Client([
-            'scheme' => $settings['scheme'],
-            'host'   => $settings['host'],
-            'port'   => $settings['port'],
-        ]);
-
-        return $redis;
     });
 };
