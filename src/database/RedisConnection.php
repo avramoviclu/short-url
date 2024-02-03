@@ -39,8 +39,8 @@ class RedisConnection
     public function connect(): Client
     {
         $redis = new Client([
-            'scheme' => $this->host,
-            'host'   => $this->scheme,
+            'scheme' => $this->scheme,
+            'host'   => $this->host,
             'port'   => $this->port
         ]);
 
