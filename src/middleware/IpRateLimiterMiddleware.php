@@ -61,8 +61,8 @@ class IpRateLimiterMiddleware
         } else {
             
             $this->redis->INCR($userIpAddress);
-            
-            $this->totalUserCalls = $this->redis->get($userIpAddress);
+
+            $this->totalUserCalls = (int) $this->redis->get($userIpAddress);
             
             if ($this->totalUserCalls > self::MAX_CALLS_LIMIT) {
 
