@@ -1,3 +1,4 @@
+# WIP: Work in progress
 ## Logs
 Check the logs of your PHP container for additional information on errors.
 ```
