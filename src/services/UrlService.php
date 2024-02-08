@@ -6,9 +6,18 @@ namespace ShortUrl\Services;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use ShortUrl\Database\MySqlConnection;
+use PDO;
 
 class UrlService
 {
+    private PDO $db;
+
+    public function __construct()
+    {
+        $this->db = MySqlConnection::getInstance()->connect();
+    }
+
     public function shorten(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $response->getBody()->write("Hello world!");
