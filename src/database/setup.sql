@@ -4,7 +4,7 @@ USE short_url;
 
 CREATE TABLE IF NOT EXISTS url (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    short_url VARCHAR(7) NOT NULL,
+    short_url VARCHAR(16) DEFAULT NULL,
     long_url TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

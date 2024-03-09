@@ -18,11 +18,42 @@ class UrlService
         $this->db = MySqlConnection::getInstance()->connect();
     }
 
-    public function shorten(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function shorten(string $longUrl): string
     {
-        $response->getBody()->write("Hello world!");
+        $id = $this->storeLongUrl($longUrl);
+
+        $shortUrl = $this->convertIdToShortUrl($id);
+
+        $this->storeShortUrl($shortUrl, $id);
+
+        return $shortUrl;
+    }
+
+    private function storeShortUrl(string $shortUrl, int $id): int
+    {
+        $sql = "UPDATE url SET short_url = :shortUrl WHERE id = :id";
         
-        return $response;
+        $stmt = $this->db->prepare($sql);
+        
+        $stmt->execute([
+            'shortUrl' => $shortUrl,
+            'id' => $id
+        ]);
+
+        return $id;
+    }
+
+    private function storeLongUrl(string $longUrl): int
+    {
+        $sql = "INSERT INTO url (long_url) VALUES (:longUrl)";
+        
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            'longUrl' => $longUrl
+        ]);
+
+        return (int) $this->db->lastInsertId();
     }
 
     public function redirect(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -32,7 +63,7 @@ class UrlService
         return $response;
     }
 
-    private function convertIdToShortUrl(int $id): string
+    private function convertIdToShortUrl(float $id): string
     {
         $map = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
