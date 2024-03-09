@@ -36,6 +36,10 @@ class IpRateLimiterMiddleware
     {
         $response = $handler->handle($request);
 
+        if ($_ENV['DISABLE_RATE_LIMITER']) {
+            return $response;
+        }
+
         if (! empty($_SERVER['HTTP_CLIENT_IP'])) {
 
             $userIpAddress = $_SERVER['HTTP_CLIENT_IP'];
